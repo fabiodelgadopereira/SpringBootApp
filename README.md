@@ -8,7 +8,7 @@ Olá! Seja bem vindo ;)
 2. [Projeto e Conteúdo](#Projeto-e-Conteudo)
 3. [Swagger](#Swagger)
 4. [JWT](#JWT)
-5. [SQL Server](#SQL-Server)
+5. [SQL Server e JDBC](#SQL-Server-e-JDBC)
 6. [Publicação](#Publicação)
 7. [Suporte](#Suporte)
 
@@ -43,9 +43,7 @@ A aplicação deverá estar disponivel em seu navegador no endereço: http://loc
 
 ## Projeto e Conteúdo
 
-Flask é um micro framework da web escrito em Python. É classificado como uma Microframework porque não requer ferramentas ou bibliotecas específicas. Não possui camada de abstração de banco de dados, validação de formulário ou qualquer outro componente em que bibliotecas de terceiros pré-existentes forneçam funções comuns. No entanto, o Flask suporta extensões que podem adicionar recursos de aplicativos como se fossem implementados no próprio Flask. Existem extensões para mapeadores objeto-relacionais, validação de formulários, manipulação de upload, várias tecnologias de autenticação aberta e várias ferramentas comuns relacionadas à estrutura. As extensões são atualizadas pela comunidade com muita frequência.
-
-O Flask-RESTful é uma extensão do Flask que adiciona suporte para a criação rápida de APIs REST. É uma abstração leve que funciona com as bibliotecas ORM/libraries. O RESTful do Flask incentiva as práticas recomendadas com configuração mínima. Se você está familiarizado com o Flask, o Flask-RESTful deve ser de fácil compreensão.
+O Spring Boot é um projeto da Spring que veio para facilitar o processo de configuração e publicação de nossas aplicações. A intenção é ter o seu projeto rodando o mais rápido possível e sem complicação. Ele consegue isso favorecendo a convenção sobre a configuração. Basta que você diga pra ele quais módulos deseja utilizar (WEB, Template, Persistência, Segurança, etc.) que ele vai reconhecer e configurar.
 
 ### Entedento a estrutura de projeto
 
@@ -92,8 +90,9 @@ fonte: https://jwt.io/introduction/
 > Exemplo de implementação para testes
 
 
-## SQL Server e pyodbc
+## SQL Server e JDBC
 
+JDBC é semelhante ao ODBC, e no principio usava justamente ODBC para conectar-se com o banco de dados. A partir de um código nativo as aplicações Java podiam utilizar qualquer banco de dados que tivesse um driver ODBC disponível. Isso contribuiu bastante para a popularização do JDBC uma vez que existe um driver ODBC para praticamente qualquer banco de dados de mercado. Nesse repositório sera utilizado o JDBC para comunicação com o banco de dados e execução de comandos através de store procedures.
 
 Stored Procedure, que traduzido significa Procedimento Armazenado, é uma conjunto de comandos em SQL que podem ser executados de uma só vez, como em uma função. Ele armazena tarefas repetitivas e aceita parâmetros de entrada para que a tarefa seja efetuada de acordo com a necessidade individual. Nesse projeto foram desenvolvidos. As Stored Procedures implementadas nesse projeto são: 
 
