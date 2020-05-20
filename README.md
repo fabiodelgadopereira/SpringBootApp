@@ -49,6 +49,12 @@ O Spring Boot é um projeto da Spring que veio para facilitar o processo de conf
 
 ![ini](/img/ini.png)
 
+## Server-Side Paging
+
+Em muitos casos - por exemplo, ao trabalhar com conjuntos de dados muito grandes - não buscamos na base de dados toda a coleção completa e armazenamos na memória. Nesse caso é usar algum tipo de paginação no servidor, onde o servidor envia apenas uma única página de cada vez. Esse é um objeto json de resposta do servidor para casos como esses:
+
+![paginacao](/img/paginacao2.PNG)
+
 ## Swagger
 
 O Swagger é uma aplicação open source que auxilia os desenvolvedores a definir, criar, documentar e consumir APIs REST;
