@@ -157,11 +157,12 @@ spring.datasource.password={{senha}}
 spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ```
 
+`repository.java`
 ```java
 @Repository
 public class ClienteRepository {
 
-    private static final String SQL_FIND_ALL = "SELECT * FROM [dbo].[Clientes]";
+    private static final String SQL_FIND_ALL = "SELECT @@version;";
 
     private static final BeanPropertyRowMapper<Cliente> ROW_MAPPER = new BeanPropertyRowMapper<>(Cliente.class);
 
