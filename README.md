@@ -123,7 +123,7 @@ Stored Procedure, que traduzido significa Procedimento Armazenado, é uma conjun
 6. Novamente, clique com o botão direito do mouse em **TCP / IP** no painel direito e selecione **Ativar**.
 7. No Serviços do SQL Server, clique com o botão direito do mouse em **SQL Server (SQLEXPRESS)** e selecione **Reiniciar**.
 
- - Firewall
+> Firewall
 
  - Para validar se a porta do servido esta liberada, execute o comando `telnet localhost 1433`
  - Para validar se o servico esta no ar, execute o comando `sc query mssqlserver`
