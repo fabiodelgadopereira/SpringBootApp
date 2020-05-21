@@ -12,7 +12,7 @@ Olá! Seja bem vindo ;)
 6. [Publicação](#Publicação)
 7. [Suporte](#Suporte)
 
-## FlaskApp
+## SpringBootApp
 
 Este repositório contém um exemplo de APIs REST desenvolvida em JAVA utilizando o framework Spring Boot com SQL Server para armazenameto de dados
 
