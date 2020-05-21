@@ -49,11 +49,6 @@ O Spring Boot é um projeto da Spring que veio para facilitar o processo de conf
 
 ![ini](/img/ini.png)
 
-## Server-Side Paging
-
-Em muitos casos - por exemplo, ao trabalhar com conjuntos de dados muito grandes - não buscamos na base de dados toda a coleção completa e armazenamos na memória. Nesse caso é usar algum tipo de paginação no servidor, onde o servidor envia apenas uma única página de cada vez. Esse é um objeto json de resposta do servidor para casos como esses:
-
-![paginacao](/img/paginacao2.PNG)
 
 ## Swagger
 
@@ -80,6 +75,18 @@ fonte: https://swagger.io/resources/webinars/getting-started-with-swagger/
 ```
 > Exemplo de implementação para testes
 
+```java
+@EnableSwagger2
+@RestController
+@RequestMapping(value="/api")
+public class MainController {
+ 
+    
+    @GetMapping(value="/ola")
+    public String getMethodName(){
+        return "Olá mundo";
+    }
+```
 
 ## JWT
 O JWT (JSON Web Token) nada mais é que um padrão (RFC-7519) de mercado que define como transmitir e armazenar objetos JSON de forma simples, compacta e segura entre diferentes aplicações, muito utilizado para validar serviços em Web Services pois os dados contidos no token gerado pode ser validado a qualquer momento uma vez que ele é assinado digitalmente.
@@ -90,10 +97,6 @@ Os JWTs são assinados usando um algoritmo de assinatura digital (por exemplo, R
 
 fonte: https://jwt.io/introduction/
 
-> A maneira mais fácil de instalar é usar o Maven:
-
-
-> Exemplo de implementação para testes
 
 
 ## SQL Server e JDBC
@@ -107,9 +110,75 @@ Stored Procedure, que traduzido significa Procedimento Armazenado, é uma conjun
 - sp_Clientes_GetAllValues
 - sp_Clientes_DeleteValue
 
+> Configurando o ambiente TCP para SQL Server
+
+1. No menu **Iniciar**, abra o **SQL Server 2014 Configuration Manager**.
+2. Clique em **Protocolo para SQLEXPRESS** em **SQL Server Network Configuration** no painel esquerdo. No painel direito, clique com o botão direito do mouse em **TCP / IP** e selecione **Propriedades**.
+3. Na caixa de diálogo Propriedades de **TCP / IP**, clique na guia **Endereços IP**.
+4. Role para baixo para localizar o **IPAL**L. Remova qualquer valor, se presente, para **portas dinâmicas TCP** e especifique **1433** para porta **TCP port**.
+
+![TCPIP_Propertie](/img/TCPIP_Propertie.png)
+
+5. Clique OK.
+6. Novamente, clique com o botão direito do mouse em **TCP / IP** no painel direito e selecione **Ativar**.
+7. No Serviços do SQL Server, clique com o botão direito do mouse em **SQL Server (SQLEXPRESS)** e selecione **Reiniciar**.
+
+ - Firewall
+
+Para validar se a porta do servido esta liberada, execute o comando `telnet localhost 1433`
+Para validar se o servico esta no ar, execute o comando `sc query mssqlserver`
+Para validar as conexoes na porta, execute o commando `netstat -ano | find "1433"`
+
 > A maneira mais fácil de instalar é usar o Maven:
 
+`pom.xml`
+```xml
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+		<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>5.2.6.RELEASE</version>
+</dependency>
+```
+
 > Exemplo de implementação para testes
+
+`application.properties`
+```java
+spring.datasource.initialization-mode=always
+spring.datasource.platform=@database.platform@
+
+spring.datasource.url=jdbc:sqlserver://{{servidor}};databaseName={{base_de_dados}};integratedsecurity=true
+spring.datasource.username={{usuario}}
+spring.datasource.password={{senha}}
+spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+```
+
+```java
+@Repository
+public class ClienteRepository {
+
+    private static final String SQL_FIND_ALL = "SELECT * FROM [dbo].[Clientes]";
+
+    private static final BeanPropertyRowMapper<Cliente> ROW_MAPPER = new BeanPropertyRowMapper<>(Cliente.class);
+
+    @Autowired
+    NamedParameterJdbcTemplate jdbcTemplate;
+
+    public Iterable<Cliente> findAll() {
+        return jdbcTemplate.query(SQL_FIND_ALL, ROW_MAPPER);
+    }
+```
+
+## Server-Side Paging
+
+Em muitos casos - por exemplo, ao trabalhar com conjuntos de dados muito grandes - não buscamos na base de dados toda a coleção completa e armazenamos na memória. Nesse caso é usar algum tipo de paginação no servidor, onde o servidor envia apenas uma única página de cada vez. Esse é um objeto json de resposta do servidor para casos como esses:
+
+![paginacao](/img/paginacao2.PNG)
+
 
 ## Suporte
 
