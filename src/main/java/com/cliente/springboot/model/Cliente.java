@@ -1,16 +1,18 @@
 package com.cliente.springboot.model;
 
+import java.util.Objects;
+
 public class Cliente {
   
-    public int Id ;
-
-    public String Nome;
+    private int Id ;
     
-    public String Cidade;
+    private String Nome;
+    
+    private String Cidade;
 
-    public String Email;
+    private String Email;
 
-    public String Sexo;
+    private String Sexo;
 
     public Cliente() {
     }
@@ -87,6 +89,37 @@ public class Cliente {
         this.Sexo = Sexo;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Cliente)) {
+            return false;
+        }
+        Cliente cliente = (Cliente) o;
+        return Id == cliente.Id && Objects.equals(Nome, cliente.Nome) && Objects.equals(Cidade, cliente.Cidade) && Objects.equals(Email, cliente.Email) && Objects.equals(Sexo, cliente.Sexo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, Nome, Cidade, Email, Sexo);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " Id='" + getId() + "'" +
+            ", Nome='" + getNome() + "'" +
+            ", Cidade='" + getCidade() + "'" +
+            ", Email='" + getEmail() + "'" +
+            ", Sexo='" + getSexo() + "'" +
+            "}";
+    }
+
+
+
+    
 
 
 

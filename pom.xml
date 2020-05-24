@@ -65,6 +65,11 @@
     <artifactId>spring-jdbc</artifactId>
     <version>5.2.6.RELEASE</version>
 </dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
