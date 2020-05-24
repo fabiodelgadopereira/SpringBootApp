@@ -1,4 +1,4 @@
-package com.cliente.springboot.onfig;
+package com.cliente.springboot.config;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class SwaggerConfig {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
             .securityReferences(defaultAuth())
-            .forPaths(PathSelectors.ant("/login/**"))
+            .forPaths(PathSelectors.ant("api/Auth/login/**"))
             .build();
     }
     

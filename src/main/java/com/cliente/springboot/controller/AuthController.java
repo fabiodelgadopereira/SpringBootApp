@@ -7,7 +7,7 @@ import com.cliente.springboot.model.Credential;
 import com.cliente.springboot.repository.CredentialRepository;
 import com.dto.UserForLoginDto;
 import com.dto.UserForRegisterDto;
-
+import com.cliente.springboot.config.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path="/api")
-public class AuthController {
+public class AuthController  {
 
     @Autowired
     CredentialRepository _repository;
+
+    
+    @Autowired
+    private JwtTokenConfig jwtTokenUtil;
 
     @PostMapping(value = "/Auth/register")
     public String register(@RequestBody UserForRegisterDto value) {
@@ -40,12 +44,13 @@ public class AuthController {
         boolean result =  _repository.login(value.getUsername(), value.getPassword());
 
         if (result == true) {
-            return generateJwtToken(value);
+            
+            return jwtTokenUtil.generateToken(value);
         }
-        return "Erro";
+        return "Unauthorized";
     }
-    public String generateJwtToken(UserForLoginDto user){
-        return "funcionol!";
+
+
+   
     }
     
-}

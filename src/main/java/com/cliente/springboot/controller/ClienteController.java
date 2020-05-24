@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @RestController
-@RequestMapping(path="/api")
+@RequestMapping()
 public class ClienteController {
 
     @Autowired
