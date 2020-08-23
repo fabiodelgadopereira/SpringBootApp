@@ -9,7 +9,7 @@ Olá! Seja bem vindo ;)
 3. [Swagger](#Swagger)
 4. [JWT](#JWT)
 5. [SQL Server e JDBC](#SQL-Server-e-JDBC)
-6. [Publicação](#Publicação)
+6. [SMTP](#SMTP)
 7. [Publicação](#Publicação)
 8. [Suporte](#Suporte)
 
@@ -32,7 +32,7 @@ Maven 3.0 +
 
 A aplicação deverá estar disponivel em seu navegador no endereço: http://localhost:8080/swagger-ui.html
 
-![swagger](/img/swagger.png)
+![swagger](/img/swagger_v2.png)
 
 ### Extensões recomendadas para desenvolvimento no VSCODE
 
