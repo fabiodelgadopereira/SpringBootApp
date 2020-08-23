@@ -1,20 +1,15 @@
 package com.cliente.springboot.controller;
 
 import java.io.IOException;
-import java.util.Objects;
 
-import com.cliente.springboot.model.Credential;
 import com.cliente.springboot.repository.CredentialRepository;
 import com.dto.UserForLoginDto;
 import com.dto.UserForRegisterDto;
 import com.cliente.springboot.config.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

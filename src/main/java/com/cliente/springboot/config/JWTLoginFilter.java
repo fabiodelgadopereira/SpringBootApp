@@ -1,6 +1,5 @@
 package com.cliente.springboot.config;
 
-
 import java.io.IOException;
 import java.util.Collections;
 
@@ -29,27 +28,18 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
-		
-		UserForLoginDto credentials = new ObjectMapper()
-				.readValue(request.getInputStream(), UserForLoginDto.class);
-		
-		return getAuthenticationManager().authenticate(
-				new UsernamePasswordAuthenticationToken(
-						credentials.getUsername(), 
-						credentials.getPassword(), 
-						Collections.emptyList()
-						)
-				);
+
+		UserForLoginDto credentials = new ObjectMapper().readValue(request.getInputStream(), UserForLoginDto.class);
+
+		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(
+				credentials.getUsername(), credentials.getPassword(), Collections.emptyList()));
 	}
-	
+
 	@Override
-	protected void successfulAuthentication(
-			HttpServletRequest request, 
-			HttpServletResponse response,
-			FilterChain filterChain,
-			Authentication auth) throws IOException, ServletException {
-		
-                JwtTokenConfig.addAuthentication(response, auth.getName());
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			FilterChain filterChain, Authentication auth) throws IOException, ServletException {
+
+		JwtTokenConfig.addAuthentication(response, auth.getName());
 	}
 
 }

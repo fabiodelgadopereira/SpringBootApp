@@ -75,7 +75,6 @@ public class CredentialRepository {
             return true;
 
         } catch (InvalidKeyException  | NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

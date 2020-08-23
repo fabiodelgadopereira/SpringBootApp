@@ -10,7 +10,8 @@ Olá! Seja bem vindo ;)
 4. [JWT](#JWT)
 5. [SQL Server e JDBC](#SQL-Server-e-JDBC)
 6. [Publicação](#Publicação)
-7. [Suporte](#Suporte)
+7. [Publicação](#Publicação)
+8. [Suporte](#Suporte)
 
 ## SpringBootApp
 
@@ -214,6 +215,61 @@ Em muitos casos - por exemplo, ao trabalhar com conjuntos de dados muito grandes
 
 ![paginacao](/img/paginacao2.PNG)
 
+## SMTP
+
+O SMTP ou Simple Mail Transfer Protocol, é uma convenção padrão dedicada ao envio de e-mail. A princípio o protocolo SMTP utilizava por padrão a porta 25 ou 465 (conexão criptografada) para conexão, porém a partir de 2013 os provedores de internet e as operadoras do Brasil passaram a bloquear a porta 25, e começaram a usar a porta 587 para diminuir a quantidade de SPAM. O SMTP é um protocolo que faz apenas o envio de e-mails, isso significa que o usuário não tem permissão para baixar as mensagens do servidor, nesse caso é necessário utilizar um Client de e-mail que suporte os protocolos POP3 ou IMAP como o Outlook, Thunderbird e etc. Para negócios ou empresas pequenas com baixo volume de e-mails, o servidor SMTP gratuito do Google pode ser uma ótima solução e você pode usar o Gmail para enviar o seu e-mail. Eles possuem uma infraestrutura gigante e você pode confiar nos serviços deles para ficar online. Porém, mesmo sendo completamente grátis, tudo tem um limite. De acordo com a documentação do Google, você pode enviar até 100 e-mails a cada período de 24 horas quando envia através do servidor SMTP deles.  Ou você também pode pensar nisso como sendo 3 mil e-mails por mês gratuitamente.Dependendo de quantos e-mails você envia ou do tamanho do seu negócio, isto pode ser mais do que suficiente. Se você envia mais de 5 mil e-mails por mês, você vai preferir usar um serviço de e-mail transacional de terceiros ou um serviço premium. 
+
+Nesse projeto foi utilizado o `spring-boot-email-core` para envio de e-mail via SMTP e os testes foram feitos utilizando o serviço do `mailtrap.io`.
+
+> Para instalar o spring-boot-email-core  utilize o commando abaixo:
+`pom.xml`
+```xml
+      <dependency>
+         <groupId>it.ozimov</groupId>
+         <artifactId>spring-boot-email-core</artifactId>
+         <version>0.6.3</version>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-mail</artifactId>
+      </dependency>
+```
+
+`application.properties`
+```java
+spring.mail.host=smtp.mailtrap.io
+spring.mail.port=2525
+spring.mail.username=xxxxxxx
+spring.mail.password=xxxxxxx
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+```
+
+Exemplo de implementação:
+```java
+@PostMapping(value="/Contato")
+    public String postCliente(@RequestBody @Valid Contato contato){
+        
+                // Create a mail sender
+                JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+                mailSender.setHost(this.emailConfig.getHost());
+                mailSender.setPort(this.emailConfig.getPort());
+                mailSender.setUsername(this.emailConfig.getUsername());
+                mailSender.setPassword(this.emailConfig.getPassword());
+        
+                // Criando um e-emil
+                SimpleMailMessage mailMessage = new SimpleMailMessage();
+                mailMessage.setFrom(contato.getEmail());
+                mailMessage.setTo("rc@feedback.com");
+                mailMessage.setSubject("New feedback from " + contato.getNome());
+                mailMessage.setText(contato.getMensagem());
+        
+                // Enviar e-mail
+                mailSender.send(mailMessage);
+        return String.format("Mensagem enviada com sucesso!");
+    }
+```
 
 ## Suporte
 
