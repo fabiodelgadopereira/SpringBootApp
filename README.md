@@ -10,8 +10,9 @@ Olá! Seja bem vindo ;)
 4. [JWT](#JWT)
 5. [SQL Server e JDBC](#SQL-Server-e-JDBC)
 6. [SMTP](#SMTP)
-7. [Publicação](#Publicação)
-8. [Suporte](#Suporte)
+7. [Testes unitários (jUnit e JaCoCo)](#Testes-unitarios-jUnit-e-JaCoCo))
+8. [Publicação](#Publicação)
+9. [Suporte](#Suporte)
 
 ## SpringBootApp
 
@@ -41,6 +42,19 @@ A aplicação deverá estar disponivel em seu navegador no endereço: http://loc
  - Spring Boot Dashboard from Microsoft
  - Lombok Annotations Support for VS Code from Gabriel Basilio Brito
  - Java Code Generators from Sohibe
+
+ #### Configurando o Java no Visual Studio Code
+
+* Pressione `Ctrl`+`Virgula`.
+* Procure por "java.home".  
+**Caso você esteja usando a versão mais recente do vscode:**  
+* Digite no seu java path(**Não se esqueça de colocar no caminho em:** `" "`).*  
+**Caso você esteja em uma versão mais antiga do vscode:**  
+* Clique no lápis ao lado da linha que começa com "java.home".
+* Clique em "Copy to settings".
+* Digite no seu java path(**Não se esqueça de colocar no caminho em:** `" "`).*
+* Press `Ctrl`+`S`  
+**Se você não sabe o seu caminho java, digite** `which java` **no seu terminal (no Windows, observe o formato correto, e.g:** `"java.home": "C:/Program Files/Java/jdk-11.0.2"`)
 
 ## Projeto e Conteúdo
 
@@ -269,6 +283,82 @@ Exemplo de implementação:
                 mailSender.send(mailMessage);
         return String.format("Mensagem enviada com sucesso!");
     }
+```
+
+## Testes unitários (jUnit e JaCoCo)
+
+Teste de unidade é toda a aplicação de teste nas assinaturas de entrada e saída de um sistema. Consiste em validar dados válidos e inválidos via I/O (entrada/saída) sendo aplicado por desenvolvedores ou analistas de teste. Uma unidade é a menor parte testável de um programa de computador. Em programação procedural, uma unidade pode ser uma função individual ou um procedimento. Idealmente, cada teste de unidade é independente dos demais, o que possibilita ao programador testar cada módulo isoladamente.
+**JUnit** é uma frameword de teste de unitários para a linguagem de programação Java. JUnit tem sido importante no desenvolvimento TDD e faz parte de uma família de estruturas de teste de unidade que é coletivamente conhecida como xUnit que se originou com SUnit.
+**JaCoCo** é uma biblioteca de cobertura de código gratuita para Java, que foi criada pela equipe EclEmma com base nas lições aprendidas com o uso e integração de bibliotecas existentes por muitos anos.
+
+> Para instalar o JUnit e JaCoCo utilize o commando abaixo:
+`pom.xml`
+```xml
+	<dependency>
+	<groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.6.2</version>
+    <scope>test</scope>
+		</dependency>
+		...
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+
+							<dataFile>target/jacoco.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>target/my-reports</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<systemPropertyVariables>
+						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+      </plugins>
+
+```
+> Exemplo de classe teste:
+```java
+import com.cliente.springboot.model.Contato;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+class SpringbootApplicationTests {
+
+	@Test
+	void contextLoads() {
+		Contato con = new Contato("zaphod", "zaphod@mail.com","mensagem");
+		assertEquals(con.getNome(),"zaphod");
+	}
+
+}
+
 ```
 
 ## Suporte
